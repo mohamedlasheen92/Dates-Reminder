@@ -1,24 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import { Container, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import "./index.css";
+
+import { data } from "./data";
+
+import DatesCount from "./components/DatesCount";
+import DatesList from "./components/DatesList";
+import DatesAction from "./components/DatesAction";
 
 function App() {
+  const [allData, setAllData] = useState(data);
+
+  const deleteData = () => {
+    setAllData([]);
+  };
+  const showData = () => {
+    setAllData(data);
+  };
+
+  useEffect(() => {
+    setAllData([]);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1 className="fs-2 text-center my-2 fw-bold text-dark">
+        Dates Reminder
+      </h1>
+
+      <Container>
+        <Row className="justify-content-center mb-2">
+          <DatesCount data={allData} />
+        </Row>
+        <Row className="justify-content-center mb-2">
+          <DatesList data={allData} />
+        </Row>
+        <Row className="justify-content-center">
+          <DatesAction deleteAllFunc={deleteData} showAllFunc={showData} />
+        </Row>
+      </Container>
+    </>
   );
 }
 
